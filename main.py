@@ -7,7 +7,7 @@ app.secret_key = '011'
 db_config = {
     'user' : 'cindy',
     'password':'0121aa',
-    'host' :'10.50.111.255',
+    'host' :'10.50.107.100',
     'database' : 'login_data',
     'collation': 'utf8mb4_general_ci'
 }
@@ -70,4 +70,4 @@ def settings():
     return "Settings page"
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5002)
