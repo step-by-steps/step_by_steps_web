@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>한걸음</h1>
+        <form method="POST" action="{{ url_for('login') }}">
+            <input type="text" name="username" placeholder="아이디" class="input-field">
+            <input type="password" name="password" placeholder="비밀번호" class="input-field">
+            <button type="submit" class="btn">로그인</button>
+        </form>
+        <div class="footer-links">
+            <a href="#">회원가입</a> / <a href="#">아이디 찾기</a> / <a href="#">비밀번호 찾기</a>
+        </div>
+        <div class="settings-icon">
+            <a href="#"><i class="fas fa-cog"></i></a>
+        </div>
+    </div>
+</body>
+</html>

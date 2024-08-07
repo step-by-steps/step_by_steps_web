@@ -1,0 +1,74 @@
+body {
+    background-color: #E3EAF3; /* 밝은 블루그레이 배경색 */
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+    background-color: #F0F4F8; 
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+h1 {
+    margin-bottom: 40px;
+    color: #343A40; /* 짙은 회색 텍스트 */
+}
+
+a.btn {
+    display: block;
+    background-color: #007ACC; /* 선명한 파란색 버튼 */
+    color: #fff;
+    text-decoration: none;
+    padding: 15px 20px;
+    margin: 10px 0;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+a.btn:hover {
+    background-color: #005f99; /* hover 효과를 위한 더 진한 파란색 */
+}
+
+.settings-icon {
+    margin-top: 20px;
+}
+
+.settings-icon a {
+    color: #343A40; /* 아이콘 색상 */
+    font-size: 24px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.settings-icon a:hover {
+    color: #007ACC; /* 아이콘 hover 색상 */
+}
+.input-field {
+    display: block;
+    width: calc(100% - 40px);
+    margin: 10px 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.footer-links {
+    margin-top: 20px;
+    color: #6C757D;
+    font-size: 14px;
+}
+
+.footer-links a {
+    color: #007ACC;
+    text-decoration: none;
+    margin: 0 5px;
+}
