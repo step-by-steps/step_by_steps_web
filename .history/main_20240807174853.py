@@ -1,40 +1,27 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask,render_template,request,redirect,url_for,session
 import mysql.connector
 
-app = Flask(__name__)
+app=Flask(__name__)
 app.secret_key = '011'
 
 db_config = {
-    'user': 'ondy',
-    'password': '030104',
-    'host': '172.20.10.12',
-    'database': 'login_data',
+    'user' : 'dy',
+    'password':'0121aa',
+    'host' :'10.50.107.100',
+    'database' : 'login_data',
     'collation': 'utf8mb4_general_ci'
 }
 
-def get_db_connection():
-    conn = mysql.connector.connect(**db_config)
-    return conn
-
 def validate_user(username, password):
-    conn = get_db_connection()
+    conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor(dictionary=True)
     cursor.execute("SELECT * FROM users WHERE username=%s AND password=%s", (username, password))
     user = cursor.fetchone()
-    # 모든 결과를 명시적으로 읽음
-    while cursor.nextset():
-        cursor.fetchall()
     cursor.close()
     conn.close()
     return user
 
 @app.route('/')
-def home():
-    if 'username' in session:
-        return redirect(url_for('index'))
-    return redirect(url_for('login'))
-
-@app.route('/index')
 def index():
     if 'username' in session:
         return render_template('index.html')
@@ -78,9 +65,7 @@ def step3():
 
 @app.route('/settings')
 def settings():
-    if 'username' in session:
-        return render_template('settings.html')
-    return redirect(url_for('login'))
+    return render_template('settings.html')
 
 if __name__ == '__main__':
     app.run(debug=True, port=5002)

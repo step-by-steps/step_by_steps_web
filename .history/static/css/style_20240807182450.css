@@ -26,6 +26,7 @@ h1 {
 
 a.btn, button.btn {
     display: block;
+    width
     background-color: #007ACC; /* 선명한 파란색 버튼 */
     color: #fff;
     text-decoration: none;
@@ -36,23 +37,8 @@ a.btn, button.btn {
     cursor: pointer;
     transition: background-color 0.3s ease;
     font-size: 18px; /* 버튼 글자 크기 */
-    text-align: center; /* 추가 */
 }
-button.login-btn {
-    display: block;
-    width: 100%;
-    background-color: #007ACC; /* 선명한 파란색 버튼 */
-    color: #fff;
-    text-decoration: none;
-    padding: 15px 20px;
-    margin: 10px 0;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-size: 18px; /* 버튼 글자 크기 */
-    text-align: center; /* 추가 */
-}
+
 a.btn:hover, button.btn:hover {
     background-color: #005f99; /* hover 효과를 위한 더 진한 파란색 */
 }
@@ -74,13 +60,12 @@ a.btn:hover, button.btn:hover {
 
 .input-field {
     display: block;
-    width: 100%;
-    margin: 10px 0;
-    padding: 15px 20px;
+    width: calc(100% - 40px);
+    margin: 10px 20px;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px; /* 입력 필드 글자 크기 */
-    box-sizing:border-box;
 }
 
 .footer-links {

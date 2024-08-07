@@ -80,7 +80,7 @@ a.btn:hover, button.btn:hover {
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px; /* 입력 필드 글자 크기 */
-    box-sizing:border-box;
+    box
 }
 
 .footer-links {

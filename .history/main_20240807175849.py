@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for
 import mysql.connector
 
 app = Flask(__name__)
@@ -29,15 +29,13 @@ def validate_user(username, password):
     return user
 
 @app.route('/')
-def home():
-    if 'username' in session:
-        return redirect(url_for('index'))
-    return redirect(url_for('login'))
-
-@app.route('/index')
 def index():
-    if 'username' in session:
-        return render_template('index.html')
+    if request.authorization:
+        username = request.authorization.username
+        password = request.authorization.password
+        user = validate_user(username, password)
+        if user:
+            return render_template('index.html')
     return redirect(url_for('login'))
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -47,39 +45,49 @@ def login():
         password = request.form['password']
         user = validate_user(username, password)
         if user:
-            session['username'] = user['username']
             return redirect(url_for('index'))
         else:
             return '로그인 실패'
     return render_template('login.html')
 
-@app.route('/logout')
-def logout():
-    session.pop('username', None)
-    return redirect(url_for('login'))
-
 @app.route('/step1')
 def step1():
-    if 'username' not in session:
-        return redirect(url_for('login'))
-    return "Step 1 page"
+    if request.authorization:
+        username = request.authorization.username
+        password = request.authorization.password
+        user = validate_user(username, password)
+        if user:
+            return "Step 1 page"
+    return redirect(url_for('login'))
 
 @app.route('/step2')
 def step2():
-    if 'username' not in session:
-        return redirect(url_for('login'))
-    return "Step 2 page"
+    if request.authorization:
+        username = request.authorization.username
+        password = request.authorization.password
+        user = validate_user(username, password)
+        if user:
+            return "Step 2 page"
+    return redirect(url_for('login'))
 
 @app.route('/step3')
 def step3():
-    if 'username' not in session:
-        return redirect(url_for('login'))
-    return "Step 3 page"
+    if request.authorization:
+        username = request.authorization.username
+        password = request.authorization.password
+        user = validate_user(username, password)
+        if user:
+            return "Step 3 page"
+    return redirect(url_for('login'))
 
 @app.route('/settings')
 def settings():
-    if 'username' in session:
-        return render_template('settings.html')
+    if request.authorization:
+        username = request.authorization.username
+        password = request.authorization.password
+        user = validate_user(username, password)
+        if user:
+            return render_template('settings.html')
     return redirect(url_for('login'))
 
 if __name__ == '__main__':

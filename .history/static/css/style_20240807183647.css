@@ -77,10 +77,10 @@ a.btn:hover, button.btn:hover {
     width: 100%;
     margin: 10px 0;
     padding: 15px 20px;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px; /* 입력 필드 글자 크기 */
-    box-sizing:border-box;
 }
 
 .footer-links {
