@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>분석하기 및 알림 발자국</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e6f0f7;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #e6f0f7;
+            padding: 20px;
+        }
+        .back-button {
+            align-self: flex-start;
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #666;
+        }
+        .back-button a {
+            text-decoration: none;
+            color: #666;
+        }
+        .title {
+            font-size: 24px;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 20px;
+            background-color: #b3d1ff;
+            width: 100%;
+            padding: 10px 0;
+            border-radius: 10px;
+        }
+
+        .light {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: yellow;
+            top: 70%;
+            left: 30%;
+            display: none; /* 기본적으로 불빛을 숨김 */
+        }
+        .text-box {
+            background-color: #d9e6f2;
+            color: #333;
+            font-size: 18px;
+            text-align: center;
+            padding: 15px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 20px;
+        }
+        .alerts-container {
+            width: 100%;
+            max-width: 300px;
+            margin-top: 20px;
+            padding-top: 20px;
+        }
+        .alerts {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            font-size: 14px;
+        }
+        .alert {
+            background-color: #f8f8f8;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-left: 5px solid #007bff;
+        }
+        .alert span {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- 분석하기 섹션 -->
+    <div class="back-button">
+        <a href="#">←</a>
+    </div>
+    <div class="title">분석하기</div>
+    <div class="graph">
+        <!-- 화장실 앞 불빛 -->
+        <div class="light" id="light-indicator"></div>
+    </div>
+    <div class="text-box">
+        홍길동님의 화장실 빈도수 변화입니다.<br>
+        {{ analysis_text }}
+    </div>
+
+    <!-- 알림 발자국 섹션 -->
+    <div class="alerts-container">
+        <ul class="alerts">
+            {% for alert in data1 %}
+            <li class="alert">알림: 사용자가 움직였습니다. <span>{{ alert['timestamp'].strftime('%I:%M %p') }}</span></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<script>
+    // 불빛을 표시하는 스크립트
+    const lightIndicator = document.getElementById('light-indicator');
+    const alerts = {{ sensor_data1 | tojson }};
+    let lightOn = false;
+
+    alerts.forEach(alert => {
+        if (alert.event_type === 'pressed') {
+            lightOn = true;
+        }
+    });
+
+    if (lightOn) {
+        lightIndicator.style.display = 'block'; // 불빛 표시
+    }
+</script>
+
+</body>
+</html>

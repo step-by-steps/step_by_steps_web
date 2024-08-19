@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>알림 발자국</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e6f0f7; /* 배경색을 연한 파란색으로 설정 */
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #e6f0f7; /* 컨테이너 배경색 설정 */
+            padding: 20px;
+        }
+        .back-button {
+            align-self: flex-start;
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #666;
+        }
+        .back-button a {
+            text-decoration: none;
+            color: #666;
+        }
+        .title {
+            font-size: 24px;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 20px;
+            background-color: #b3d1ff; /* 제목 배경색 설정 */
+            width: 100%;
+            padding: 10px 0;
+            border-radius: 10px;
+        }
+        .graph {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .text-box {
+            background-color: #d9e6f2;
+            color: #333;
+            font-size: 18px;
+            text-align: center;
+            padding: 15px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 20px; /* 아래 섹션과의 간격을 위해 여백 추가 */
+        }
+        .alerts-container {
+            width: 100%;
+            max-width: 300px;
+            margin-top: 20px;
+            padding-top: 20px;
+        }
+        .alerts {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            font-size: 14px;
+        }
+        .alert {
+            background-color: #f8f8f8;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-left: 5px solid #007bff;
+        }
+        .alert span {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- 분석하기 섹션 -->
+    <div class="back-button">
+        <a href="#">←</a>
+    </div>
+    <div class="title">분석하기</div>
+    <div class="graph">
+        <!-- 그래프 이미지를 표시하는 부분 -->
+        <img src="{{ graph_url }}" alt="분석 그래프" style="width: 100%; height: auto;">
+    </div>
+    <div class="text-box">
+        홍길동님의 화장실 빈도수 변화입니다.<br>
+        {{ analysis_text }}
+    </div>
+
+    <!-- 알림 발자국 섹션 -->
+    <div class="alerts-container">
+        <ul class="alerts">
+            {% for alert in sensor_data1 %}
+            <li class="alert">알림: 사용자가 움직였습니다. <span>{{ alert['timestamp'].strftime('%I:%M %p') }}</span></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

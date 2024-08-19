@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>분석하기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e6f0f7; /* 배경색을 연한 파란색으로 설정 */
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #e6f0f7; /* 컨테이너 배경색 설정 */
+            padding: 20px;
+        }
+        .back-button {
+            align-self: flex-start;
+            margin-bottom: 10px;
+            font-size: 18px;
+   
+</head>
+<body>
+
+<div class="container">
+    <div class="back-button">
+        <a href="#">←</a>
+    </div>
+    <div class="title">분석하기</div>
+    <div class="graph">
+        <!-- 그래프 이미지를 표시하는 부분 -->
+        <img src="{{ graph_url }}" alt="분석 그래프" style="width: 100%; height: auto;">
+    </div>
+    <div class="text-box">
+        홍길동님의 화장실 빈도수 변화입니다.<br>
+        {{ analysis_text }}
+    </div>
+</div>
+
+</body>
+</html>

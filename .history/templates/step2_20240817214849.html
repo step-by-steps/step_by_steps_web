@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>알림 발자국</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e6f0f7;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #e6f0f7;
+            padding: 20px;
+        }
+        .back-button {
+            align-self: flex-start;
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #666;
+        }
+        .back-button a {
+            text-decoration: none;
+            color: #666;
+        }
+        .layout {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+            height: 400px;
+            margin-bottom: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        .room {
+            position: absolute;
+            background-color: #cccccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+        /* 방 위치 조정 */
+        .room.화장실 { top: 10px; left: 10px; width: 80px; height: 80

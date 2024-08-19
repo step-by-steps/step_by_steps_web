@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>알림 발자국</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e6f0f7;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #e6f0f7;
+            padding: 20px;
+        }
+        .title {
+            font-size: 24px;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 20px;
+            background-color: #b3d1ff;
+            width: 100%;
+            padding: 10px 0;
+            border-radius: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .back-button {
+            align-self: flex-start;
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #666;
+        }
+        .back-button a {
+            text-decoration: none;
+            color: #666;
+        }
+        .layout {
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+            height: 320px;
+            margin-bottom: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        .room {
+            position: absolute;
+            background-color: #cccccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+        /* 방 위치 조정 */
+        .room.화장실 { top: 10px; left: 10px; width: 80px; height: 80px; }
+        .room.현관 { top: 10px; left: 100px; width: 150px; height: 60px; }
+        .room.부엌 { top: 10px; left: 260px; width: 80px; height: 80px; }
+        .room.침실 { top: 100px; left: 10px; width: 80px; height: 80px; }
+        .room.거실 { top: 100px; left: 100px; width: 240px; height: 120px; }
+        .room.베란다 { top: 230px; left: 10px; width: 330px; height: 60px; }
+
+        /* 알림 버튼 위치 및 색상 */
+        .alert_button {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+        .alert_button1 { top: 50px; left: 50px; background-color: #FF0000; } /* location1 - 빨간색 */
+        .alert_button2 { top: 40px; left: 180px; background-color: #00FF00; } /* location2 - 초록색 */
+        .alert_button3 { top: 50px; left: 300px; background-color: #0000FF; } /* location3 - 파란색 */
+
+        .text-box {
+            background-color: #d9e6f2;
+            color: #333;
+            font-size: 18px;
+            text-align: center;
+            padding: 15px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 20px;
+        }
+        .alerts-container {
+            width: 100%;
+            max-width: 300px;
+            margin-top: 20px;
+            padding-top: 20px;
+        }
+        .alerts {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            font-size: 14px;
+        }
+        .alert {
+            background-color: #f8f8f8;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-left: 5px solid;
+        }
+        .alert.location1 { border-left-color: #FF0000; } /* 빨간색 */
+        .alert.location2 { border-left-color: #00FF00; } /* 초록색 */
+        .alert.location3 { border-left-color: #0000FF; } /* 파란색 */
+
+        .alert span {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="title">분석하기</div>
+
+    <div class="back-button">
+        <a href="#">←</a>
+    </div>
+    <div class="layout">
+        <div class="room 화장실">화장실</div>
+        <div class="room 현관">현관</div>
+        <div class="room 부엌">부엌</div>
+        <div class="room 침실">침실</div>
+        <div class="room 거실">거실</div>
+        <div class="room 베란다">베란다</div>
+
+        <!-- 색이 다른 알림 버튼들 -->
+        <div class="alert_button alert_button1"></div>
+        <div class="alert_button alert_button2"></div>
+        <div class="alert_button alert_button3"></div>
+    </div>
+
+    <!-- 분석하기 섹션 -->
+    <div class="text-box">
+        홍길동님의 이동 변화입니다.<br>
+        {{ analysis_text }}
+    </div>
+
+    <!-- 알림 리스트 섹션 -->
+    <div class="alerts-container">
+        <ul class="alerts">
+            {% for alert in sensor_data1 %}
+            <li class="alert {% if alert.location == 'location1' %}location1{% elif alert.location == 'location2' %}location2{% elif alert.location == 'location3' %}location3{% endif %}">
+                알림: 사용자가 움직였습니다.
+                <br>
+                <span>{{ alert['timestamp'].strftime('%Y-%m-%d %I:%M %p') }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

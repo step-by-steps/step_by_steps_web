@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STEP BY STEP</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>한걸음</h1>
+        
+        <div class="buttons">
+            <a href="{{ url_for('step1') }}" class="btn">알림발자국</a>
+            <a href="{{ url_for('step2') }}" class="btn">발자국</a>
+            <a href="{{ url_for('step3') }}" class="btn">사용 기록 분석</a>
+        </div>
+
+        <div class="settings-icon">
+            <a href="{{ url_for('settings') }}"><i class="fas fa-cog"></i></a>
+        </div>
+    </div>
+</body>
+</html>

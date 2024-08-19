@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>설정</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+        function updateFontSize() {
+            var fontSize = document.getElementById('font-size').value;
+            document.body.style.fontSize = fontSize + 'px';
+            localStorage.setItem('fontSize', fontSize);
+        }
+
+        function updateUserName() {
+            var userName = document.getElementById('user-name').value;
+            localStorage.setItem('userName', userName);
+        }
+
+        window.onload = function() {
+            var storedFontSize = localStorage.getItem('fontSize');
+            if (storedFontSize) {
+                document.body.style.fontSize = storedFontSize + 'px';
+                document.getElementById('font-size').value = storedFontSize;
+            }
+
+            var storedUserName = localStorage.getItem('userName');
+            if (storedUserName) {
+                document.getElementById('user-name').value = storedUserName;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="{{ url_for('login') }}" class="back-button"><i class="fas fa-arrow-left"></i></a>
+            <h1>설정</h1>
+        </div>
+        <div class="settings-options">
+            <label for="font-size">글자 크기 조절:</label>
+            <input type="range" id="font-size" name="font-size" min="10" max="30" value="16" oninput="updateFontSize()">
+        </div>
+        <div class="settings-options">
+            <label for="user-name">사용자 이름 설정:</label>
+            <input type="text" id="user-name" name="user-name" placeholder="이름 입력" oninput="updateUserName()">
+        </div>
+    </div>
+</body>
+</html>

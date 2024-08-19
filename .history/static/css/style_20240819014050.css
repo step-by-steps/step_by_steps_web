@@ -1,0 +1,142 @@
+body, h1, h2, h3, h4, h5, h6, p, label, input, button, a {
+    font-size: inherit;
+}
+
+body {
+    background-color: #E3EAF3; /* 밝은 블루그레이 배경색 */
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-size: 16px; /* 기본 글자 크기 */
+}
+
+.container {
+    text-align: center;
+    background-color: #F0F4F8; /* 기존보다 명도 높은 배경색 */
+    padding: 40px;
+    border-radius: 20px; /* 살짝 더 둥근 모서리 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 240px; /* 더 좁은 너비로 조정 */
+    height: 450px; /* 높이 조정 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+h1 {
+    margin-bottom: 20px; /* 제목 아래 여백 조정 */
+    color: #343A40; /* 짙은 회색 텍스트 */
+    font-size: 24px; /* 헤더 글자 크기 */
+}
+
+.settings-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* 중간으로 위치 */
+    flex-grow: 1; /* 중간으로 오도록 하는 부분 추가 */
+}
+
+.settings-options label {
+    font-size: inherit;
+    margin-bottom: 10px;
+    color: #343A40; /* 레이블 색상 */
+}
+
+.settings-options input[type="range"] {
+    width: 100%; /* 슬라이더 너비를 부모 요소에 맞춤 */
+    max-width: 200px; /* 최대 너비를 설정 */
+    margin-top: 10px; /* 슬라이더와 레이블 사이의 간격 */
+}
+
+a.btn, button.btn {
+    display: flex; /* 플렉스박스를 사용하여 텍스트 중앙 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    background-color: #90CAF9; /* 밝은 파란색 버튼 */
+    color: #343A40; /* 버튼 글자 색상을 짙은 회색으로 변경 */
+    text-decoration: none;
+    margin: 10px; /* 버튼 간격을 위해 변경 */
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: inherit; /* 버튼 글자 크기 */
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 버튼 그림자 추가 */
+    width: calc(45% - 20px); 
+    height: 100px; /* 버튼 높이 추가 */
+}
+
+a.btn:hover, button.btn:hover {
+    background-color: #64B5F6; /* hover 효과를 위한 더 진한 파란색 */
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between; /* 버튼을 중앙에 배치 */
+    align-items: center; /* 수직 중앙 정렬 */
+}
+
+.settings-icon {
+    margin-top: 10px; /* 아이콘 위쪽 여백 조정 */
+    display: flex;
+    justify-content: center;
+}
+
+.settings-icon a {
+    color: #343A40; /* 아이콘 색상 */
+    font-size: 24px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.settings-icon a:hover {
+    color: #007ACC; /* 아이콘 hover 색상 */
+}
+
+.input-field {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 15px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px; /* 입력 필드 글자 크기 */
+    box-sizing:border-box;
+}
+
+.footer-links {
+    margin-top: 20px;
+    color: #6C757D;
+    font-size: 14px;
+}
+
+.footer-links a {
+    color: #007ACC;
+    text-decoration: none;
+    margin: 0 5px;
+    font-size: 14px; /* 푸터 링크 글자 크기 */
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    flex: 1;
+    text-align: center;
+    margin: 0;
+    color: #343A40;
+}
+
+.back-button {
+    color: #343A40;
+    text-decoration: none;
+    font-size: 24px;
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>알림 발자국</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 300px;
+            margin: auto;
+            padding-top: 20px;
+        }
+        .map {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background-color: #f0f0f0;
+            margin-bottom: 20px;
+        }
+        .map .room {
+            position: absolute;
+            background-color: #c0c0c0;
+            border: 1px solid #000;
+        }
+        .map .room.화장실 { top: 10px; left: 10px; width: 100px; height: 100px; }
+        .map .room.현관 { top: 10px; left: 120px; width: 60px; height: 50px; }
+        .map .room.부엌 { top: 10px; left: 190px; width: 100px; height: 100px; }
+        .map .room.침실 { top: 120px; left: 10px; width: 100px; height: 100px; }
+        .map .room.거실 { top: 120px; left: 190px; width: 100px; height: 100px; }
+        .map .room.베란다 { top: 240px; left: 10px; width: 280px; height: 50px; background-color: #e0e0e0; }
+        .footsteps {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-image: url('/static/footsteps.png'); /* 발자국 이미지 경로 */
+            background-size: contain;
+        }
+        .alerts {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            font-size: 14px;
+        }
+        .alert {
+            background-color: #f8f8f8;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-left: 5px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="map">
+        <div class="room 화장실">화장실</div>
+        <div class="room 현관">현관</div>
+        <div class="room 부엌">부엌</div>
+        <div class="room 침실">침실</div>
+        <div class="room 거실">거실</div>
+        <div class="room 베란다">베란다</div>
+        
+        <!-- 발자국 위치는 동적으로 설정 -->
+        <div class="footsteps" style="top: 80px; left: 160px;"></div>
+        <div class="footsteps" style="top: 120px; left: 140px;"></div>
+        <div class="footsteps" style="top: 160px; left: 120px;"></div>
+    </div>
+
+    <ul class="alerts">
+        <li class="alert">알림: 사용자의 움직임이 없습니다. <span>9:00 AM</span></li>
+        <li class="alert">알림: 사용자가 움직이기 시작했습니다. <span>9:30 AM</span></li>
+        <li class="alert">알림: 사용자가 쓰러진 것 같습니다. <span>7:00 PM</span></li>
+    </ul>
+</div>
+
+</body>
+</html>
