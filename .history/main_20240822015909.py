@@ -12,38 +12,37 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = os.getenv('SECRET_KEY')
+app.secret_key = '011'
 
-# 환경 변수에서 MySQL 연결 정보 가져오기
 db_login_data_config = {
-    'user': os.getenv('DB_LOGIN_USER'),
-    'password': os.getenv('DB_LOGIN_PASSWORD'),
-    'host': os.getenv('DB_LOGIN_HOST'),
-    'database': os.getenv('DB_LOGIN_DATABASE'),
+    'user': 'ondy',
+    'password': '030104',
+    'host': '221.155.118.13',
+    'database': 'login_data',
     'collation': 'utf8mb4_general_ci'
 }
 
 db_sensor_data5_config = {
-    'user': os.getenv('DB_SENSOR5_USER'),
-    'password': os.getenv('DB_SENSOR5_PASSWORD'),
-    'host': os.getenv('DB_SENSOR5_HOST'),
-    'database': os.getenv('DB_SENSOR5_DATABASE'),
+    'user': 'ondy',
+    'password': '030104',
+    'host': '221.155.118.13',
+    'database': 'sensor_data5',
     'collation': 'utf8mb4_general_ci'
 }
 
-db_sensor_data1_config = {
-    'user': os.getenv('DB_SENSOR1_USER'),
-    'password': os.getenv('DB_SENSOR1_PASSWORD'),
-    'host': os.getenv('DB_SENSOR1_HOST'),
-    'database': os.getenv('DB_SENSOR1_DATABASE'),
+db_sensor_data1_config={
+    'user': 'ondy',
+    'password': '030104',
+    'host': '221.155.118.13',
+    'database': 'sensor_data1',
     'collation': 'utf8mb4_general_ci'
-}
+}   
 
 db_sensor_data3_config = {
-    'user': os.getenv('DB_SENSOR3_USER'),
-    'password': os.getenv('DB_SENSOR3_PASSWORD'),
-    'host': os.getenv('DB_SENSOR3_HOST'),
-    'database': os.getenv('DB_SENSOR3_DATABASE'),
+    'user': 'ondy',
+    'password': '030104',
+    'host': '221.155.118.13',
+    'database': 'sensor_data3',
     'collation': 'utf8mb4_general_ci'
 }
 
@@ -181,7 +180,7 @@ def step2():
     if 'username' not in session:
         return redirect(url_for('login'))
     sensor_data5 = get_sensor_data5()
-    return render_template('step2.html',sensor_data5=sensor_data5)
+    return render_template('re.html',sensor_data5=sensor_data5)
 
 @app.route('/step2_image')
 def step2_image():

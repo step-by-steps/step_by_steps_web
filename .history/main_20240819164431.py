@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session,send_file,jsonify
+from flask import Flask, render_template, request, redirect, url_for, session,send_file
 import mysql.connector
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -14,7 +14,6 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY')
 
-# 환경 변수에서 MySQL 연결 정보 가져오기
 db_login_data_config = {
     'user': os.getenv('DB_LOGIN_USER'),
     'password': os.getenv('DB_LOGIN_PASSWORD'),
@@ -28,6 +27,7 @@ db_sensor_data5_config = {
     'password': os.getenv('DB_SENSOR5_PASSWORD'),
     'host': os.getenv('DB_SENSOR5_HOST'),
     'database': os.getenv('DB_SENSOR5_DATABASE'),
+    'port':3306,
     'collation': 'utf8mb4_general_ci'
 }
 
@@ -36,6 +36,7 @@ db_sensor_data1_config = {
     'password': os.getenv('DB_SENSOR1_PASSWORD'),
     'host': os.getenv('DB_SENSOR1_HOST'),
     'database': os.getenv('DB_SENSOR1_DATABASE'),
+    'port':3306;
     'collation': 'utf8mb4_general_ci'
 }
 
@@ -46,7 +47,6 @@ db_sensor_data3_config = {
     'database': os.getenv('DB_SENSOR3_DATABASE'),
     'collation': 'utf8mb4_general_ci'
 }
-
 #공통 DB 연결 함수
 def get_db_connection(config):
     connection = mysql.connector.connect(**config)
@@ -67,6 +67,7 @@ def get_login_data():
     return data
 
 def get_sensor_data5():
+    # sensor_data1 데이터베이스에 연결
     connection = get_db_connection(db_sensor_data5_config)
     cursor = connection.cursor(dictionary=True)
     
@@ -78,30 +79,6 @@ def get_sensor_data5():
     connection.close()
     
     return data
-
-def get_all_sensor_data():
-    connection = get_db_connection(db_sensor_data5_config)
-    cursor = connection.cursor(dictionary=True)
-    
-    # 모든 데이터를 최신순으로 가져오기
-    query = "SELECT location, event_type, timestamp FROM sensor_events WHERE event_type = 'Pressed' ORDER BY timestamp DESC"
-    cursor.execute(query)
-    data = cursor.fetchall()
-    
-    cursor.close()
-    connection.close()
-    
-    return data
-
-@app.route('/all_data')
-def all_data():
-    data = get_sensor_data5()
-    
-    if data:
-        return jsonify(data)
-    else:
-        return jsonify({"error": "No data found"}), 404
-
 
 def get_sensor_data1():
     connection = mysql.connector.connect(**db_sensor_data1_config)
@@ -116,6 +93,20 @@ def get_sensor_data1():
     connection.close()
 
     return data  
+
+def get_sensor_data2():
+    connection = get_db_connection(db_sensor_data5_config)
+    cursor = connection.cursor(dictionary=True)
+    
+    # duration 데이터 가져오기
+    query = "SELECT location, duration FROM sensor_events WHERE event_type = 'pressed'"
+    cursor.execute(query)
+    data = cursor.fetchall()
+    
+    cursor.close()
+    connection.close()
+    
+    return data
 
 def get_sensor_press_interval():
     connection = get_db_connection(db_sensor_data3_config)
@@ -255,7 +246,7 @@ def plot_png():
     daily_data.plot(kind='bar', ax=ax, color='blue')
     ax.set_xlabel('날짜')  # x축 레이블
     ax.set_ylabel('빈도수')  # y축 레이블
-    ax.set_title('부엌 사용 빈도수')  # 그래프 제목
+    ax.set_title('화장실 사용 빈도수')  # 그래프 제목
     
     # x축 레이블을 데이터셋에 있는 날짜로 설정
     ax.set_xticklabels([date.strftime('%Y-%m-%d') for date in daily_data.index])

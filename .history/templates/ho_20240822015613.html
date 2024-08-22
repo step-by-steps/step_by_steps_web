@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자동 새로고침 예제</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #E3EAF3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #F0F4F8;
+            padding: 20px;
+            width: 100%;
+            max-width: 320px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .title {
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+    <script>
+        // 5초마다 페이지 새로고침
+        setTimeout(function(){
+            window.location.reload(1);
+        }, 5000); // 5000ms = 5초
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="title">자동 새로고침 페이지</div>
+    <p>이 페이지는 5초마다 새로고침됩니다.</p>
+</div>
+</body>
+</html>

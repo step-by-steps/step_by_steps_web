@@ -84,7 +84,7 @@
         .alert_button1 { top: 50px; left: 50px; background-color: #FF0000; } /* location1 - 빨간색 */
         .alert_button2 { top: 40px; left: 180px; background-color: #00FF00; } /* location2 - 초록색 */
         .alert_button3 { top: 50px; left: 300px; background-color: #0000FF; } /* location3 - 파란색 */
-        .alert_button4 { top: 220px; left: 160px; background-color: #FFFF00; } /* 베란다 - 노란색 위치 조정 */
+        .alert_button4 { top: 240px; left: 160px; background-color: #FFFF00; } /* 베란다 - 노란색 위치 조정 */
 
         .text-box {
             background-color: #d9e6f2;
@@ -124,7 +124,12 @@
             font-weight: bold;
         }
     </style>
-
+    <script>
+        // 5초마다 페이지 새로고침
+        setTimeout(function(){
+            window.location.reload(1);
+        }, 1000); // 5000ms = 5초
+    </script>
 </head>
 <body>
 
@@ -151,7 +156,7 @@
 
     <!-- 분석하기 섹션 -->
     <div class="text-box">
-        <span id="user-name-display">수정님의 </span>이동 변화입니다.<br>
+        <span id="user-name-display">홍길동님의 </span>이동 변화입니다.<br>
         {{ analysis_text }}
     </div>
 
@@ -183,22 +188,9 @@
 <script>
 
     let audioContext;
-
     window.onload = function() {
     audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-    const storedUserName = localStorage.getItem('userName');
-        if (storedUserName) {
-            document.getElementById('user-name-display').textContent = storedUserName + "님의 ";
-        } else {
-            document.getElementById('user-name-display').textContent = "사용자님의 ";
-        }
-        // 데이터 업데이트를 주기적으로 호출
-        setInterval(updateData, 5000);  // 페이지가 로드된 후 1초마다 데이터 업데이트
     };
-        setTimeout(function(){
-            window.location.reload();
-        }, 5000);  
 
     function playTone(frequency, duration) {
         const oscillator = audioContext.createOscillator();
@@ -223,7 +215,7 @@ function updateData() {
             console.log('Fetched data:', data);  // 데이터를 콘솔에 출력하여 구조 확인
 
             const sensorDataContainer = document.getElementById('sensor-data');
-            let playSound =false;
+            let playSound =f
             
             if (sensorDataContainer) {
                 sensorDataContainer.innerHTML = ''; // 기존 내용을 초기화
@@ -236,24 +228,22 @@ function updateData() {
                         <hr/>
                     `;
                     sensorDataContainer.innerHTML += entryHtml;
-                    if (entry.location === '베란다') {
-                            playSound = true;
+                  // 베란다 감지 시 주파수 경고음 재생
+                  if (entry.location === '베란다') {
+                            playTone(440, 3); // 440Hz 주파수로 3초간 소리 재생
                         }
                     });
 
-                    // 화면 업데이트가 완료된 후 소리 재생
-                    if (playSound) {
-                        playTone(1000, 3); // 1000Hz 주파수로 3초간 소리 재생
-                    }
-                } else {
-                    console.error('Element with ID "sensor-data" not found.');
-                }
-            })
-            .catch(error => console.error('Error:', error));
+
+            } else {
+                console.error('Element with ID "sensor-data" not found.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
 }
 
 window.onload = function() {
-    setInterval(updateData, 5000);  // 페이지가 로드된 후 1초마다 데이터 업데이트
+    setInterval(updateData, 1000);  // 페이지가 로드된 후 1초마다 데이터 업데이트
 };
 
 

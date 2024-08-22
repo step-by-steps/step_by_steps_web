@@ -151,7 +151,7 @@
 
     <!-- 분석하기 섹션 -->
     <div class="text-box">
-        <span id="user-name-display">수정님의 </span>이동 변화입니다.<br>
+        <span id="user-name-display">님의 </span>이동 변화입니다.<br>
         {{ analysis_text }}
     </div>
 
@@ -183,10 +183,8 @@
 <script>
 
     let audioContext;
-
     window.onload = function() {
     audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
     const storedUserName = localStorage.getItem('userName');
         if (storedUserName) {
             document.getElementById('user-name-display').textContent = storedUserName + "님의 ";
@@ -194,11 +192,8 @@
             document.getElementById('user-name-display').textContent = "사용자님의 ";
         }
         // 데이터 업데이트를 주기적으로 호출
-        setInterval(updateData, 5000);  // 페이지가 로드된 후 1초마다 데이터 업데이트
+        setInterval(updateData, 1000);  // 페이지가 로드된 후 1초마다 데이터 업데이트
     };
-        setTimeout(function(){
-            window.location.reload();
-        }, 5000);  
 
     function playTone(frequency, duration) {
         const oscillator = audioContext.createOscillator();
