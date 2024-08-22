@@ -13,27 +13,28 @@ import statistics
 from dotenv import load_dotenv
 import pymysql
 
-load_dotenv()  # .env 파일의 환경 변수를 로드합니다.
+load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = os.getenv('SECRET_KEY')
+app.secret_key = '011'
 
-# 환경 변수에서 MySQL 연결 정보 가져오기
 db_login_data_config = {
-    'user': os.getenv('DB_LOGIN_USER'),
-    'password': os.getenv('DB_LOGIN_PASSWORD'),
-    'host': os.getenv('DB_LOGIN_HOST'),
-    'database': os.getenv('DB_LOGIN_DATABASE'),
+    'user': 'ondy',
+    'password': '030104',
+    'host': '221.155.118.13',
+    'database': 'login_data',
     'collation': 'utf8mb4_general_ci'
 }
 
 db_sensor_data5_config = {
-    'user': os.getenv('DB_SENSOR5_USER'),
-    'password': os.getenv('DB_SENSOR5_PASSWORD'),
-    'host': os.getenv('DB_SENSOR5_HOST'),
-    'database': os.getenv('DB_SENSOR5_DATABASE'),
+    'user': 'ondy',
+    'password': '030104',
+    'host': '221.155.118.13',
+    'database': 'sensor_data5',
     'collation': 'utf8mb4_general_ci'
 }
+
+
 
 #공통 DB 연결 함수
 def get_db_connection(config):
@@ -214,7 +215,6 @@ def step3():
         return render_template('step3.html', analysis_text=analysis_text, location_text=location, selected_location=location)
 
     comparison_text = ""  # 빈 문자열로 초기화
-
     # 최신 두 날짜의 데이터 비교
     if len(daily_data) > 1:
         latest_value = daily_data.iloc[-1]
@@ -260,15 +260,15 @@ def step3():
 
     # 모든 분석 결과를 합쳐서 출력
     analysis_text = f"""
-    <p>{comparison_text}</p>
-    <p>{weekly_avg_text}</p>
-    <p>{max_text}</p>
-    <p>{std_dev_text}</p>
-    <p>{trend_text}</p>
+    {comparison_text}<br>
+    {weekly_avg_text}<br>
+    {max_text}<br>
+    {std_dev_text}<br>
+    {trend_text}
     """
 
     location_text = {"부엌": "부엌", "현관": "현관", "화장실": "화장실"}.get(location, "부엌")
-    return render_template('step3.html', analysis_text=analysis_text, location=location_text, selected_location=location)
+    return render_template('step3.html', analysis_text=analysis_text, location_text=location_text, selected_location=location)
 
 
 @app.route('/plot.png')

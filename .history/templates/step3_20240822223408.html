@@ -95,16 +95,17 @@
 
       <!-- 선택 버튼들 -->
     <div class="selection-buttons">
-         <a href="{{ url_for('step3', location='부엌') }}"> 부엌</a>
-         <a href="{{ url_for('step3', location='현관') }}">현관</a>
+         <a href="{{ url_for('step3', location='부엌') }}">> 부엌</a>
+         <a href="{{ url_for('step3', location='현관') }}">>현관</a>
          <a href="{{ url_for('step3', location='화장실') }}" >화장실</a>
     </div>
     <div class="graph">
         <!-- 그래프 이미지를 표시하는 부분 -->
-        <img src="{{ url_for('plot_png', location=selected_location) }}" alt="통계 그래프" style="width: 100%; height: auto;">    </div>
+        <img src="{{ url_for('plot_png') }}" alt="통계 그래프" style="width: 100%; height: auto;">
+    </div>
     <div class="analysis-text">
-        <span id="user-name-display">홍길동님의 </span>{{location}} 출입 빈도수 변화입니다.<br>
-        {{ analysis_text|safe }}
+        <span id="user-name-display">홍길동님의 </span>{{location}} 빈도수 변화입니다.<br>
+        {{ analysis_text }}
     </div>
 </div>
 

@@ -1,7 +1,4 @@
-import matplotlib
-matplotlib.use('Agg')
-
-from flask import Flask, render_template, request, redirect, url_for, session,send_file,jsonify
+from flask import Flask, render_template, request, redirect, url_for, session,send_file,jsonify,pymsql
 import mysql.connector
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -11,29 +8,29 @@ import matplotlib.font_manager as fm
 from matplotlib import rc
 import statistics
 from dotenv import load_dotenv
-import pymysql
 
-load_dotenv()  # .env 파일의 환경 변수를 로드합니다.
+load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = os.getenv('SECRET_KEY')
+app.secret_key = '011'
 
-# 환경 변수에서 MySQL 연결 정보 가져오기
 db_login_data_config = {
-    'user': os.getenv('DB_LOGIN_USER'),
-    'password': os.getenv('DB_LOGIN_PASSWORD'),
-    'host': os.getenv('DB_LOGIN_HOST'),
-    'database': os.getenv('DB_LOGIN_DATABASE'),
+    'user': 'ondy',
+    'password': '030104',
+    'host': '221.155.118.13',
+    'database': 'login_data',
     'collation': 'utf8mb4_general_ci'
 }
 
 db_sensor_data5_config = {
-    'user': os.getenv('DB_SENSOR5_USER'),
-    'password': os.getenv('DB_SENSOR5_PASSWORD'),
-    'host': os.getenv('DB_SENSOR5_HOST'),
-    'database': os.getenv('DB_SENSOR5_DATABASE'),
+    'user': 'ondy',
+    'password': '030104',
+    'host': '221.155.118.13',
+    'database': 'sensor_data5',
     'collation': 'utf8mb4_general_ci'
 }
+
+
 
 #공통 DB 연결 함수
 def get_db_connection(config):
@@ -209,17 +206,12 @@ def step3():
     df = df.set_index('timestamp')
     daily_data = df.resample('D').size()
 
-    if daily_data.empty:
-        analysis_text = "해당 위치에 대한 데이터가 없습니다."
-        return render_template('step3.html', analysis_text=analysis_text, location_text=location, selected_location=location)
-
-    comparison_text = ""  # 빈 문자열로 초기화
-
     # 최신 두 날짜의 데이터 비교
     if len(daily_data) > 1:
-        latest_value = daily_data.iloc[-1]
-        previous_value = daily_data.iloc[-2]
-
+        latest_date = daily_data.index[-1]
+        previous_date = daily_data.index[-2]
+        latest_value = daily_data[-1]
+        previous_value = daily_data[-2]
         
         difference = latest_value - previous_value
         if difference > 0:
@@ -228,47 +220,11 @@ def step3():
             analysis_text = f"어제보다 {-difference}만큼 줄었습니다."
         else:
             analysis_text = "어제와 변동이 없습니다."
-            # 일주일 동안의 평균 빈도수 계산
-    if len(daily_data) >= 7:
-        last_week_data = daily_data[-7:]
-        weekly_avg = last_week_data.mean()
-        weekly_avg_text = f"최근 7일간의 평균 빈도수는 {weekly_avg:.2f}입니다."
     else:
-        weekly_avg_text = "최근 7일간의 데이터를 계산하기에 데이터가 부족합니다."
-
-    # 최대 빈도수와 해당 날짜 계산
-    max_value = daily_data.max()
-    max_date = daily_data.idxmax().strftime('%Y-%m-%d')
-    max_text = f"가장 높은 빈도수는 {max_value}이며, {max_date}에 기록되었습니다."
-
-    # 빈도수의 표준 편차 계산
-    std_dev = daily_data.std()
-    std_dev_text = f"빈도수의 표준 편차는 {std_dev:.2f}입니다."
-
-    # 빈도수 증가/감소 트렌드 분석 (최근 3일 기준)
-    if len(daily_data) >= 3:
-        trend_data = daily_data[-3:]
-        trend_diff = trend_data.diff().dropna().sum()
-        if trend_diff > 0:
-            trend_text = "최근 3일 동안 빈도수가 증가하는 추세입니다."
-        elif trend_diff < 0:
-            trend_text = "최근 3일 동안 빈도수가 감소하는 추세입니다."
-        else:
-            trend_text = "최근 3일 동안 빈도수에 큰 변동이 없습니다."
-    else:
-        trend_text = "최근 3일 동안의 데이터를 분석하기에 데이터가 부족합니다."
-
-    # 모든 분석 결과를 합쳐서 출력
-    analysis_text = f"""
-    <p>{comparison_text}</p>
-    <p>{weekly_avg_text}</p>
-    <p>{max_text}</p>
-    <p>{std_dev_text}</p>
-    <p>{trend_text}</p>
-    """
+        analysis_text = "데이터가 충분하지 않습니다."
 
     location_text = {"부엌": "부엌", "현관": "현관", "화장실": "화장실"}.get(location, "부엌")
-    return render_template('step3.html', analysis_text=analysis_text, location=location_text, selected_location=location)
+    return render_template('step3.html', analysis_text=analysis_text)
 
 
 @app.route('/plot.png')
@@ -278,12 +234,12 @@ def plot_png():
 
     sensor_data = get_sensor_data(location)  # location에 맞는 데이터 가져오기
     df = pd.DataFrame(sensor_data)
-
+    
     # 날짜를 인덱스로 설정하고, 일별로 빈도를 계산
     df['timestamp'] = pd.to_datetime(df['timestamp'])
     df = df.set_index('timestamp')
     daily_data = df.resample('D').size()
-      
+    
     # Windows에서 Malgun Gothic 폰트 설정
     font_path = 'C:/Windows/Fonts/malgun.ttf'  # 폰트 경로 (Windows의 경우)
     font_prop = fm.FontProperties(fname=font_path)
@@ -309,6 +265,27 @@ def plot_png():
     plt.close()
 
     return send_file(img, mimetype='image/png')
+
+
+def analyze_press_intervals():
+    press_interval_data = get_sensor_press_interval()
+    
+    if not press_interval_data:
+        return []
+    
+    intervals = [entry['press_interval'] for entry in press_interval_data]
+    avg_interval = statistics.mean(intervals) if intervals else 0
+    alerts = []
+
+    for entry in press_interval_data:
+        if entry['press_interval'] > avg_interval * 2:  # 평균보다 2배 이상 긴 간격
+            alerts.append({
+                'type': 'interval',
+                'timestamp': entry['timestamp'],
+                'message': f"사용 간격이 평균보다 2배 이상 길었습니다: {entry['press_interval']} 밀리초"
+            })
+
+    return alerts
 
 
 @app.route('/settings')
